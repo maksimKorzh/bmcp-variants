@@ -53,7 +53,7 @@
                     Simplified chess (no castling, no enpassant)
                   </button>
                   <button class="dropdown-item">
-                    More variants are comming (e.g. Xiangqi)
+                    <a href="https://github.com/maksimKorzh/wukong-xiangqi">More variants are comming soon (e.g. Xiangqi)</a>
                   </button>
                 </div>
               </div>
@@ -81,9 +81,10 @@
           <div id="variant-name" class="card-header text-center" style="font-size: 20px;"></div>
           
           <!-- Useful links -->
-          <div class="row text-center mt-2 mb-1">
-            <div class="col"><a id="variant-play" target="_blank" href="">Standalone version</a></div>
-            <div class="col"><a id="variant-source" target="_blank" href="">Source code</a></div>
+          <div class="row text-center mt-2 mb-1 pl-4 pr-4">
+            <div class="col text-left"><a id="variant-play" target="_blank" href="">Standalone version</a></div>
+            <div class="col"><a href="mailto:freesoft.for.people@gmail.com">freesoft.for.people@gmail.com</a></div>
+            <div class="col text-right"><a id="variant-source" target="_blank" href="">Source code</a></div>
           </div>
           
           <!-- Variant description -->
@@ -107,13 +108,13 @@
       {
         'name': 'Simplified chess (no castling, no enpassant)',
         'source': 'chess-variants/bmcp_chess_simplified.html',
-        'embed': `<!-- Embed chess variant into your wesite -->
+        'embed': `<!-- Embed chess variant into your website -->
 <iframe id="variant-frame"
   title="Chess variant"
   width="570"
   height="570"
   style="border: 0px solid black; margin: 0px;"
-  src="chess-variants/bmcp_chess_simplified.html?color=white&searchDepth=5">
+  src="https://maksimkorzh.github.io/bmcp-variants/chess-variants/bmcp_chess_simplified.html?color=white&searchDepth=3">
 </iframe>`,
         'description': 'Bare minimum implementation an Engine & GUI in vanilla JavaScript to play international western chess dropping nitty gritty rules for didactic purposes, simplicity and clarity',
         'features': [
@@ -155,12 +156,16 @@
     
     // set side to move
     function setSide(color) {
-      if (color) loadVariant($('#variant-name').text(), '?color=black&searchDepth=5');
-      else loadVariant($('#variant-name').text(), '?color=white&searchDepth=5');
+      if (color) loadVariant($('#variant-name').text(), '?color=black&searchDepth=3');
+      else {
+        setTimeout(function() {
+          loadVariant($('#variant-name').text(), '?color=white&searchDepth=3');
+        }, 100);
+      }
     }
     
     // load simplified chess by default
-    loadVariant('Simplified chess (no castling, no enpassant)', '?color=white&searchDepth=5');
+    loadVariant('Simplified chess (no castling, no enpassant)', '?color=white&searchDepth=3');
   </script>
 <html>
 
