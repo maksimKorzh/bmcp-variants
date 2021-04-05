@@ -28,35 +28,73 @@
     
   </head>
   <body style="font-family: monospace; font-size: 16px;">
-    <div class="card" style="margin: 10px; height: 100%">
-      <div class="card-body">
-        <div class="row m-0 p-0">
-          <div class="col m-0 p-0">
-            <div class="card" style="margin: 5px; height: 100%">
-              <div id="variant-name" class="card-header text-center"></div>
-              <div class="card-body">
-                <iframe id="variant-source"
-                  title="Inline Frame Example"
-                  width="560"
-                  height="560"
-                  style="border: 0px solid black"
-                  src="">
-                </iframe>
-                
-                <!--textarea id="embed" rows="5" class="form-control"></textarea-->
-                
+    <div class="row m-0 p-0">
+      <div class="m-0 p-0">
+        <div class="card" style="margin-top: 5px; margin-left: 5px; margin-right: 2px; height: 100%">
+          <!-- Game menu -->
+          <div class="card-header text-center m-0 p-2">
+            <div class="col btn-group m-0 p-0">
+              <button class="btn btn-outline-secondary" onclick="setSide(0)">
+                Play white
+              </button>
+              
+              <div class="dropdown">
+                <button class="btn btn-outline-secondary dropdown-toggle ml-2 mr-2"
+                        type="button"
+                        id="dropdownMenuButton"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false">
+                  Variant
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <button class="dropdown-item"
+                          onclick="loadVariant(this.innerHTML.trim(), '?color=white&searchDepth=5')">
+                    Simplified chess (no castling, no enpassant)
+                  </button>
+                  <button class="dropdown-item">
+                    More variants are comming (e.g. Xiangqi)
+                  </button>
+                </div>
               </div>
+              
+              <button class="btn btn-outline-secondary" onclick="setSide(1)">
+                Play black
+              </button>
             </div>
           </div>
-          <div class="col m-0 p-0">
-            <div class="card" style="margin: 5px; height: 100%">
-              <div class="card-header">
-                ddd
-              </div>
-              <div class="card-body">
-                <textarea id="embed" rows="5" class="form-control"></textarea>
-              </div>
-            </div>
+          <div class="card-body m-0 p-0">
+            <!-- Chess variant frame -->
+            <iframe id="variant-frame"
+              title="Chess variant"
+              width="570"
+              height="570"
+              style="border: 0px solid black; margin: 0px;"
+              src="chess-variants/bmcp_chess_simplified.html?color=white&searchDepth=5">
+            </iframe>
+          </div>
+        </div>
+      </div>
+      <div class="col m-0 p-0">
+        <div class="card" style="margin-top: 5px; margin-left: 5px; margin-left: 2px; height: 100%">
+          <!-- Variant name -->
+          <div id="variant-name" class="card-header text-center" style="font-size: 20px;"></div>
+          
+          <!-- Useful links -->
+          <div class="row text-center mt-2 mb-1">
+            <div class="col"><a id="variant-play" target="_blank" href="">Standalone version</a></div>
+            <div class="col"><a id="variant-source" target="_blank" href="">Source code</a></div>
+          </div>
+          
+          <!-- Variant description -->
+          <p class="pl-4" id="variant-description"></>
+          
+          <!-- Variant description -->
+          <ul id="variant-features"></ul>
+          
+          <!-- Embed code -->
+          <div class="card-body">
+            <textarea id="variant-embed" rows="9" class="form-control"></textarea>
           </div>
         </div>
       </div>
@@ -67,13 +105,31 @@
     // Variants DB
     const Variants = [
       {
-        'name': 'Chess simplified',
-        'source': 'chess-variants/bmcp_chess_simplified.html'
+        'name': 'Simplified chess (no castling, no enpassant)',
+        'source': 'chess-variants/bmcp_chess_simplified.html',
+        'embed': `<!-- Embed chess variant into your wesite -->
+<iframe id="variant-frame"
+  title="Chess variant"
+  width="570"
+  height="570"
+  style="border: 0px solid black; margin: 0px;"
+  src="chess-variants/bmcp_chess_simplified.html?color=white&searchDepth=5">
+</iframe>`,
+        'description': 'Bare minimum implementation an Engine & GUI in vanilla JavaScript to play international western chess dropping nitty gritty rules for didactic purposes, simplicity and clarity',
+        'features': [
+          'Standard chess moves',
+          'no castling',
+          'no enpassant',
+          'no 3 fold repetition',
+          'no 50 rule move count',
+          'queen promotion only'
+        ],
+        'url': 'https://github.com/maksimKorzh/bmcp_js/blob/master/docs/bmcp_2.0.html'
       }
     ];
     
     // pick up variant
-    function loadVariant(name) {
+    function loadVariant(name, params) {
       // loop over variants DB
       for (let index = 0; index < Variants.length; index++) {
         // found variant
@@ -83,13 +139,28 @@
           
           // load variant
           $('#variant-name').text(variant.name);
-          $('#variant-source').attr('src', variant.source);
+          $('#variant-frame').attr('src', variant.source + params);
+          $('#variant-embed').text(variant.embed);
+          $('#variant-description').text(variant.description);
+          $('#variant-play').attr('href', variant.source + params);
+          $('#variant-source').attr('href', variant.url);
+          $('#variant-features').text('');
+          
+          variant.features.forEach(function(feature) {
+            $('#variant-features').append('<li>' + feature + '</li>');
+          });
         }
       }
     }
     
+    // set side to move
+    function setSide(color) {
+      if (color) loadVariant($('#variant-name').text(), '?color=black&searchDepth=5');
+      else loadVariant($('#variant-name').text(), '?color=white&searchDepth=5');
+    }
+    
     // load simplified chess by default
-    loadVariant('Chess simplified');
+    loadVariant('Simplified chess (no castling, no enpassant)', '?color=white&searchDepth=5');
   </script>
 <html>
 
