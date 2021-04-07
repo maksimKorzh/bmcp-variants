@@ -1,3 +1,13 @@
+<!-- Analytics -->
+<script type="text/javascript">
+  if (window.location.href.includes('github')) {
+    $.post('https://maksimkorzh.pythonanywhere.com/analytics/api/post', {
+      date: new Date,
+      url: window.location.href
+    });
+  }
+</script>
+
 <div id="board"></div>
 <style>
   .highlight { box-shadow: inset 0px 0px 3px 3px #ff3300; }
