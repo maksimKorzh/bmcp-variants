@@ -49,11 +49,12 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <button class="dropdown-item"
-                          onclick="loadVariant(this.innerHTML.trim(), '?color=white&searchDepth=5')">
+                          onclick="loadVariant(this.innerHTML.trim(), '?color=white&searchDepth=3')">
                     Simplified chess (no castling, no enpassant)
                   </button>
-                  <button class="dropdown-item">
-                    <a href="https://github.com/maksimKorzh/wukong-xiangqi">More variants are comming soon (e.g. Xiangqi)</a>
+                  <button class="dropdown-item"
+                          onclick="loadVariant(this.innerHTML.trim(), '?color=white&searchDepth=3')">
+                    Chiness chess (Xiangqi)
                   </button>
                 </div>
               </div>
@@ -67,8 +68,8 @@
             <!-- Chess variant frame -->
             <iframe id="variant-frame"
               title="Chess variant"
-              width="570"
-              height="570"
+              width="600"
+              height="650"
               style="border: 0px solid black; margin: 0px;"
               src="chess-variants/bmcp_chess_simplified.html?color=white&searchDepth=5">
             </iframe>
@@ -88,15 +89,21 @@
           </div>
           
           <!-- Variant description -->
-          <p class="pl-4" id="variant-description"></>
+          <p class="pl-4" id="variant-description">
+            This is the didactic proof of concept implementation of a bare minimum chess engine and GUI
+            I've developed to help people learning the very gist of chess programming. This
+            work is dedicated to hobby programmers who eventually want to come up with their own
+            programs playing either standard chess or chess variants. Every chess variant
+            presented here is available as a single stand-alone heavily commented javascript
+            source file that can run locally in the browser on computer or mobile device.
+            Some nitty gritty rules are dropped
+            for simplicity and clarity. All the features and limitations regarding a particular
+            chess variant are listed below. The entire engine is the single function that takes
+            board position as an input and outputs best move found within a fixed depth search.
+          </p>
           
           <!-- Variant description -->
-          <ul id="variant-features"></ul>
-          
-          <!-- Embed code -->
-          <div class="card-body">
-            <textarea id="variant-embed" rows="9" class="form-control"></textarea>
-          </div>
+          <ul id="variant-features"></ul>          
         </div>
       </div>
     </div>
@@ -108,24 +115,38 @@
       {
         'name': 'Simplified chess (no castling, no enpassant)',
         'source': 'chess-variants/bmcp_chess_simplified.html',
-        'embed': `<!-- Embed chess variant into your website -->
-<iframe id="variant-frame"
-  title="Chess variant"
-  width="570"
-  height="570"
-  style="border: 0px solid black; margin: 0px;"
-  src="https://maksimkorzh.github.io/bmcp-variants/chess-variants/bmcp_chess_simplified.html?color=white&searchDepth=3">
-</iframe>`,
-        'description': 'Bare minimum implementation an Engine & GUI in vanilla JavaScript to play international western chess dropping nitty gritty rules for didactic purposes, simplicity and clarity',
         'features': [
-          'Standard chess moves',
+          '0x88 array based board representation',
+          '3 nested loops based move generation',
+          'Fail-soft negamax search with alpha-beta pruning',
+          'evaluation function (material weights + piece-square table)',
+          'bundled web UI',
+          'move validation',
+          'pseudo-legal move highlighting',
+          'hardcoded queen promotion',
           'no castling',
           'no enpassant',
           'no 3 fold repetition',
           'no 50 rule move count',
-          'queen promotion only'
         ],
         'url': 'https://github.com/maksimKorzh/bmcp_js/blob/master/docs/bmcp_2.0.html'
+      },
+      {
+        'name': 'Chiness chess (Xiangqi)',
+        'source': 'chess-variants/bmcp_xiangqi.html',
+        'features': [
+          '11x14 array based board representation',
+          '3 nested loops based move generation',
+          'Fail-soft negamax search with alpha-beta pruning',
+          'evaluation function (material weights + piece-square table)',
+          'bundled web UI',
+          'move validation',
+          'pseudo-legal move highlighting',
+          'opposed generals rule applied',
+          'no 3 fold repetition',
+          'no 50 rule move count',
+        ],
+        'url': 'https://github.com/maksimKorzh/bmcp_variants/blob/master/chess-variants/bmcp_xiangqi.html'
       }
     ];
     
@@ -141,8 +162,6 @@
           // load variant
           $('#variant-name').text(variant.name);
           $('#variant-frame').attr('src', variant.source + params);
-          $('#variant-embed').text(variant.embed);
-          $('#variant-description').text(variant.description);
           $('#variant-play').attr('href', variant.source + params);
           $('#variant-source').attr('href', variant.url);
           $('#variant-features').text('');
@@ -150,6 +169,8 @@
           variant.features.forEach(function(feature) {
             $('#variant-features').append('<li>' + feature + '</li>');
           });
+          
+          break;
         }
       }
     }
