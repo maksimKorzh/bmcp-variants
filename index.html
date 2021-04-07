@@ -94,12 +94,13 @@
             I've developed to help people learning the very gist of chess programming. This
             work is dedicated to hobby programmers who eventually want to come up with their own
             programs playing either standard chess or chess variants. Every chess variant
-            presented here is available as a single stand-alone heavily commented javascript
-            source file that can run locally in the browser on computer or mobile device.
-            Some nitty gritty rules are dropped
-            for simplicity and clarity. All the features and limitations regarding a particular
-            chess variant are listed below. The entire engine is the single function that takes
+            presented here is available as a single stand-alone HTML file with heavily commented javascript
+            source. It can run locally in the browser on computer or mobile device.
+            Some nitty gritty rules are dropped for simplicity and clarity. The entire engine is the single function that takes
             board position as an input and outputs best move found within a fixed depth search.
+            Every variant is a derivative of the standard chess with some modification to fit
+            the rules of the specific variant.
+            All the features and limitations regarding a particular chess variant are listed below.
           </p>
           
           <!-- Variant description -->
@@ -124,6 +125,7 @@
           'move validation',
           'pseudo-legal move highlighting',
           'hardcoded queen promotion',
+          'string query parameters based "API" to set color and search depth',
           'no castling',
           'no enpassant',
           'no 3 fold repetition',
@@ -139,10 +141,11 @@
           '3 nested loops based move generation',
           'Fail-soft negamax search with alpha-beta pruning',
           'evaluation function (material weights + piece-square table)',
-          'bundled web UI',
+          'bundled web UI with embedded base64 encoded graphics',
           'move validation',
           'pseudo-legal move highlighting',
           'opposed generals rule applied',
+          'string query parameters based "API" to set color and search depth',
           'no 3 fold repetition',
           'no 60 rule move count',
         ],
