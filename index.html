@@ -56,6 +56,10 @@
                           onclick="loadVariant(this.innerHTML.trim(), '?color=white&searchDepth=3')">
                     Chiness chess (Xiangqi)
                   </button>
+                  <button class="dropdown-item"
+                          onclick="loadVariant(this.innerHTML.trim(), '?color=white&searchDepth=3')">
+                    Korean chess (Janggi)
+                  </button>
                 </div>
               </div>
               
@@ -129,7 +133,7 @@
           'no castling',
           'no enpassant',
           'no 3 fold repetition',
-          'no 50 rule move count',
+          'no 50 rule move count'
         ],
         'url': 'https://github.com/maksimKorzh/bmcp_js/blob/master/docs/bmcp_2.0.html'
       },
@@ -147,9 +151,28 @@
           'opposed generals rule applied',
           'string query parameters based "API" to set color and search depth',
           'no 3 fold repetition',
-          'no 60 rule move count',
+          'no 60 rule move count'
         ],
         'url': 'https://github.com/maksimKorzh/bmcp-variants/blob/main/chess-variants/bmcp_xiangqi.html'
+      },
+      {
+        'name': 'Korean chess (Janggi)',
+        'source': 'chess-variants/bmcp_janggi.html',
+        'features': [
+          '11x14 array based board representation',
+          '3 nested loops based move generation',
+          'Fail-soft negamax search with alpha-beta pruning',
+          'evaluation function (material weights + piece-square table)',
+          'bundled web UI with embedded base64 encoded graphics',
+          'move validation',
+          'pseudo-legal move highlighting',
+          'string query parameters based "API" to set color and search depth',
+          'no bikjang',
+          'no move passing',
+          'no initial knight and bishop swap (however it\'s possible to swap them directly in the source code)',
+          'no 3 fold repetition'
+        ],
+        'url': 'https://github.com/maksimKorzh/bmcp-variants/blob/main/chess-variants/bmcp_janggi.html'
       }
     ];
     
