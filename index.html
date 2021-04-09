@@ -60,6 +60,10 @@
                           onclick="loadVariant(this.innerHTML.trim(), '?color=white&searchDepth=3')">
                     Korean chess (Janggi)
                   </button>
+                  <button class="dropdown-item"
+                          onclick="loadVariant(this.innerHTML.trim(), '?color=white&searchDepth=3')">
+                    Thai chess (Makruk)
+                  </button>
                 </div>
               </div>
               
@@ -173,6 +177,23 @@
           'no 3 fold repetition'
         ],
         'url': 'https://github.com/maksimKorzh/bmcp-variants/blob/main/chess-variants/bmcp_janggi.html'
+      },
+      {
+        'name': 'Thai chess (Makruk)',
+        'source': 'chess-variants/bmcp_makruk.html',
+        'features': [
+          '0x88 array based board representation',
+          '3 nested loops based move generation',
+          'Fail-soft negamax search with alpha-beta pruning',
+          'evaluation function (material weights + piece-square table)',
+          'bundled web UI with embedded base64 encoded graphics',
+          'move validation',
+          'pseudo-legal move highlighting',
+          'string query parameters based "API" to set color and search depth',
+          'no 3 fold repetition',
+          'no material counting on draw'
+        ],
+        'url': 'https://github.com/maksimKorzh/bmcp-variants/blob/main/chess-variants/bmcp_makruk.html'
       }
     ];
     
